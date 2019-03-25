@@ -16,6 +16,7 @@
       ],
       'sources': [
         'src/bindings.cpp',
+        'src/sdl.cpp',
         'src/util.cpp',
       ],
       'include_dirs': [
