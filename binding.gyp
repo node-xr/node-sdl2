@@ -23,13 +23,10 @@
         "<!@(node -p \"require('node-addon-api').include\")",
         '<(module_root_dir)/deps/sdl2/include',
       ],
-      "dependencies": [
-        "<!@(node -p \"require('node-addon-api').gyp\")"
-      ],
       'conditions': [
         ['OS=="linux"', {
           'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/linux64'],
-          'libraries': ['<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2.so'],
+          'libraries': [ '-Wl,-rpath,<(module_root_dir)/build/Release/' ],
           'copies':
           [
             {

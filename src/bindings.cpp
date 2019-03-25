@@ -4,7 +4,7 @@
 
 static napi_value Init(napi_env env, napi_value exports)
 {
-  return create_sdl(env);
+  return create_sdl(env, exports);
 }
 
 NAPI_MODULE(NODE_GYP_MODULE_NAME, Init)
