@@ -16,24 +16,26 @@
       ],
       'sources': [
         'src/bindings.cpp',
+        'src/sdl_video.cpp',
+        'src/sdl.cpp',
         'src/util.cpp',
       ],
       'include_dirs': [
         "<!@(node -p \"require('node-addon-api').include\")",
         '<(module_root_dir)/deps/sdl2/include',
       ],
-      "dependencies": [
-        "<!@(node -p \"require('node-addon-api').gyp\")"
-      ],
       'conditions': [
         ['OS=="linux"', {
           'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/linux64'],
-          'libraries': ['<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2.so'],
+          'libraries': [
+            '-Wl,-rpath,<(module_root_dir)/build/Release',
+            '<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2-2.0.so.0'
+          ],
           'copies':
           [
             {
               'destination': '<(module_root_dir)/build/Release',
-              'files': ['<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2.so']
+              'files': ['<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2-2.0.so.0']
             }
           ],
         }],
