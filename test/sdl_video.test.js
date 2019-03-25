@@ -12,8 +12,15 @@ describe('sdl video', () => {
   });
 
   it('includes SDL_WindowFlags', () => {
-    const { SDL_WINDOW_SHOWN } = sdl;
+    const {
+      SDL_WINDOW_SHOWN,
+      SDL_WINDOWPOS_UNDEFINED_MASK,
+      SDL_WINDOWPOS_CENTERED_MASK
+    } = sdl;
+
     expect(SDL_WINDOW_SHOWN).toEqual(0x00000004);
+    expect(SDL_WINDOWPOS_UNDEFINED_MASK).toEqual(0x1fff0000);
+    expect(SDL_WINDOWPOS_CENTERED_MASK).toEqual(0x2fff0000);
   });
 
   it('can create and destroy a window', () => {
