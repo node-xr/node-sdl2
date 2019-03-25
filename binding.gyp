@@ -26,12 +26,15 @@
       'conditions': [
         ['OS=="linux"', {
           'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/linux64'],
-          'libraries': [ '-Wl,-rpath,<(module_root_dir)/build/Release/' ],
+          'libraries': [
+            '-Wl,-rpath,<(module_root_dir)/build/Release',
+            '<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2-2.0.so.0'
+          ],
           'copies':
           [
             {
               'destination': '<(module_root_dir)/build/Release',
-              'files': ['<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2.so']
+              'files': ['<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2-2.0.so.0']
             }
           ],
         }],
