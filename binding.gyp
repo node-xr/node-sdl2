@@ -16,8 +16,9 @@
       ],
       'sources': [
         'src/bindings.cpp',
-        'src/sdl_video.cpp',
-        'src/sdl.cpp',
+        'src/sdl/sdl.cpp',
+        'src/sdl/syswm.cpp',
+        'src/sdl/video.cpp',
         'src/util.cpp',
       ],
       'include_dirs': [
