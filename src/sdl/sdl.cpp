@@ -1,6 +1,7 @@
 #include "sdl.hpp"
+#include "../util.hpp"
 
-#include "SDL.h"
+#include <SDL.h>
 
 void create_sdl(napi_env env, napi_value exports)
 {

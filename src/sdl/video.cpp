@@ -1,4 +1,5 @@
 #include "video.hpp"
+#include "../util.hpp"
 
 #include <SDL_video.h>
 

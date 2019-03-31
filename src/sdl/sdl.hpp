@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../util.hpp"
 #include <node_api.h>
 
 void create_sdl(napi_env env, napi_value exports);

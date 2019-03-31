@@ -1,6 +1,7 @@
 #include "syswm.hpp"
+#include "../util.hpp"
 
-#include "SDL_syswm.h"
+#include <SDL_syswm.h>
 #include <string>
 
 void create_sdl_syswm(napi_env env, napi_value exports)

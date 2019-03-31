@@ -163,3 +163,18 @@ exports.RENDER_DEVICE_RESET = 0x2001;
 // Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use;
 // and should be allocated with SDL_RegisterEvents()
 exports.USEREVENT = 0x8000;
+
+//===========================================================================
+// SDL_events.h
+// SDL_eventaction
+exports.ADDEVENT = 0;
+exports.PEEKEVENT = 1;
+exports.GETEVENT = 2;
+
+//===========================================================================
+// SDL_events.h
+// SDL event state operations
+exports.QUERY = -1;
+exports.IGNORE = 0;
+exports.DISABLE = 0;
+exports.ENABLE = 1;
