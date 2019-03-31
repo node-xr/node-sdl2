@@ -15,7 +15,11 @@ const main = async () => {
     SDL.WINDOW_SHOWN
   );
 
-  await sleep(5000);
+  while (!SDL.QuitRequested()) {
+    const event = SDL.PollEvent();
+    if (event) console.log(event);
+    await sleep(1);
+  }
 
   SDL.DestroyWindow(window);
   SDL.Quit();

@@ -17,6 +17,7 @@
       'sources': [
         'src/bindings.cpp',
         'src/sdl/events.cpp',
+        'src/sdl/quit.cpp',
         'src/sdl/sdl.cpp',
         'src/sdl/syswm.cpp',
         'src/sdl/video.cpp',

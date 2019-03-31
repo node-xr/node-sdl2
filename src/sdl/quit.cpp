@@ -5,7 +5,7 @@
 #include <SDL_quit.h>
 
 //===========================================================================
-void create_sdl_event(napi_env env, napi_value exports)
+void create_sdl_quit(napi_env env, napi_value exports)
 {
   export_function(env, exports, "QuitRequested", napi_SDL_QuitRequested);
 }

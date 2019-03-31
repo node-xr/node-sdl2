@@ -280,7 +280,7 @@ napi_value convert_SDL_event(napi_env env, const SDL_Event &event)
 }
 
 //===========================================================================
-void create_sdl_event(napi_env env, napi_value exports)
+void create_sdl_events(napi_env env, napi_value exports)
 {
   export_function(env, exports, "PumpEvents", napi_SDL_PumpEvents);
   export_function(env, exports, "HasEvent", napi_SDL_HasEvent);
