@@ -22,3 +22,18 @@ void export_function(napi_env env, napi_value exports, const char *name, napi_ca
     napi_throw_error(env, NULL, message.c_str());
   }
 }
+
+napi_value convert_float_array(napi_env env, float *arr, size_t length)
+{
+  napi_value retval;
+  napi_create_array_with_length(env, length, &retval);
+
+  for (size_t i = 0; i < length; ++i)
+  {
+    napi_value elem;
+    napi_create_double(env, arr[i], &elem);
+    napi_set_element(env, retval, i, elem);
+  }
+
+  return retval;
+}

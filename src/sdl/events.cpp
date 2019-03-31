@@ -16,135 +16,262 @@ napi_value convert_SDL_event(napi_env env, const SDL_Event &event)
   {
   case SDL_DISPLAYEVENT:
   {
-    SET_PROPERTY(retval, uint32, "display", event.display.display);
-    SET_PROPERTY(retval, uint32, "event", event.display.event);
-    SET_PROPERTY(retval, int32, "data1", event.display.data1);
+    SDL_DisplayEvent args = event.display;
+    SET_PROPERTY(retval, uint32, "display", args.display);
+    SET_PROPERTY(retval, uint32, "event", args.event);
+    SET_PROPERTY(retval, int32, "data1", args.data1);
     break;
   }
   case SDL_WINDOWEVENT:
   {
-    SET_PROPERTY(retval, uint32, "windowID", event.window.windowID);
-    SET_PROPERTY(retval, uint32, "event", event.window.event);
-    SET_PROPERTY(retval, int32, "data1", event.window.data1);
-    SET_PROPERTY(retval, int32, "data2", event.window.data2);
+    SDL_WindowEvent args = event.window;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    SET_PROPERTY(retval, uint32, "event", args.event);
+    SET_PROPERTY(retval, int32, "data1", args.data1);
+    SET_PROPERTY(retval, int32, "data2", args.data2);
     break;
   }
   case SDL_KEYDOWN:
-  case SDL_KEYUP: // TODO: mark intentional
+    /* fall through */
+  case SDL_KEYUP:
   {
-    SET_PROPERTY(retval, uint32, "windowID", event.key.windowID);
-    SET_PROPERTY(retval, uint32, "state", event.key.state);
-    SET_PROPERTY(retval, uint32, "repeat", event.key.repeat);
+    SDL_KeyboardEvent args = event.key;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    SET_PROPERTY(retval, uint32, "state", args.state);
+    SET_PROPERTY(retval, uint32, "repeat", args.repeat);
 
     napi_value keysym;
     ASSERT_OK(napi_create_object(env, &keysym), "EINVAL", "Failed to create SDL_event.");
     {
-      SET_PROPERTY(keysym, uint32, "scancode", event.key.keysym.scancode);
-      SET_PROPERTY(keysym, int32, "sym", event.key.keysym.sym);
-      SET_PROPERTY(keysym, uint32, "mod", event.key.keysym.mod);
+      SET_PROPERTY(keysym, uint32, "scancode", args.keysym.scancode);
+      SET_PROPERTY(keysym, int32, "sym", args.keysym.sym);
+      SET_PROPERTY(keysym, uint32, "mod", args.keysym.mod);
     }
     ASSERT_OK(napi_set_named_property(env, retval, "keysym", keysym), "EINVAL", "Property setting error.");
     break;
   }
   case SDL_TEXTEDITING:
   {
+    SDL_TextEditingEvent args = event.edit;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    SET_PROPERTY_TEXT(retval, "text", args.text, SDL_TEXTEDITINGEVENT_TEXT_SIZE);
+    SET_PROPERTY(retval, int32, "start", args.start);
+    SET_PROPERTY(retval, int32, "length", args.length);
     break;
   }
   case SDL_TEXTINPUT:
   {
+    SDL_TextInputEvent args = event.text;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    SET_PROPERTY_TEXT(retval, "text", args.text, SDL_TEXTINPUTEVENT_TEXT_SIZE);
     break;
   }
   case SDL_MOUSEMOTION:
   {
+    SDL_MouseMotionEvent args = event.motion;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    SET_PROPERTY(retval, uint32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "state", args.state);
+    SET_PROPERTY(retval, int32, "x", args.x);
+    SET_PROPERTY(retval, int32, "y", args.y);
+    SET_PROPERTY(retval, int32, "xrel", args.xrel);
+    SET_PROPERTY(retval, int32, "yrel", args.yrel);
     break;
   }
   case SDL_MOUSEBUTTONDOWN:
+    /* fall through */
   case SDL_MOUSEBUTTONUP:
   {
+    SDL_MouseButtonEvent args = event.button;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    SET_PROPERTY(retval, uint32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "button", args.button);
+    SET_PROPERTY(retval, uint32, "state", args.state);
+    SET_PROPERTY(retval, uint32, "clicks", args.clicks);
+    SET_PROPERTY(retval, int32, "x", args.x);
+    SET_PROPERTY(retval, int32, "y", args.y);
     break;
   }
   case SDL_MOUSEWHEEL:
   {
+    SDL_MouseWheelEvent args = event.wheel;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    SET_PROPERTY(retval, uint32, "which", args.which);
+    SET_PROPERTY(retval, int32, "x", args.x);
+    SET_PROPERTY(retval, int32, "y", args.y);
+    SET_PROPERTY(retval, uint32, "direction", args.direction);
     break;
   }
   case SDL_JOYAXISMOTION:
   {
+    SDL_JoyAxisEvent args = event.jaxis;
+    SET_PROPERTY(retval, int32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "axis", args.axis);
+    SET_PROPERTY(retval, int32, "value", args.value);
+    break;
+  }
+  case SDL_JOYBALLMOTION:
+  {
+    SDL_JoyBallEvent args = event.jball;
+    SET_PROPERTY(retval, int32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "ball", args.ball);
+    SET_PROPERTY(retval, int32, "xrel", args.xrel);
+    SET_PROPERTY(retval, int32, "yrel", args.yrel);
     break;
   }
   case SDL_JOYHATMOTION:
   {
+    SDL_JoyHatEvent args = event.jhat;
+    SET_PROPERTY(retval, int32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "hat", args.hat);
+    SET_PROPERTY(retval, uint32, "value", args.value);
     break;
   }
   case SDL_JOYBUTTONDOWN:
+    /* fall through */
   case SDL_JOYBUTTONUP:
   {
+    SDL_JoyButtonEvent args = event.jbutton;
+    SET_PROPERTY(retval, int32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "button", args.button);
+    SET_PROPERTY(retval, uint32, "state", args.state);
     break;
   }
   case SDL_JOYDEVICEADDED:
+    /* fall through */
   case SDL_JOYDEVICEREMOVED:
   {
+    SDL_JoyDeviceEvent args = event.jdevice;
+    SET_PROPERTY(retval, int32, "which", args.which);
     break;
   }
   case SDL_CONTROLLERAXISMOTION:
   {
+    SDL_ControllerAxisEvent args = event.caxis;
+    SET_PROPERTY(retval, int32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "axis", args.axis);
+    SET_PROPERTY(retval, int32, "value", args.value);
     break;
   }
   case SDL_CONTROLLERBUTTONDOWN:
+    /* fall through */
   case SDL_CONTROLLERBUTTONUP:
   {
+    SDL_ControllerButtonEvent args = event.cbutton;
+    SET_PROPERTY(retval, int32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "button", args.button);
+    SET_PROPERTY(retval, uint32, "state", args.state);
     break;
   }
   case SDL_CONTROLLERDEVICEADDED:
+    /* fall through */
   case SDL_CONTROLLERDEVICEREMOVED:
+    /* fall through */
   case SDL_CONTROLLERDEVICEREMAPPED:
   {
+    SDL_ControllerDeviceEvent args = event.cdevice;
+    SET_PROPERTY(retval, int32, "which", args.which);
     break;
   }
   case SDL_AUDIODEVICEADDED:
+    /* fall through */
   case SDL_AUDIODEVICEREMOVED:
   {
+    SDL_AudioDeviceEvent args = event.adevice;
+    SET_PROPERTY(retval, uint32, "which", args.which);
+    SET_PROPERTY(retval, uint32, "iscapture", args.iscapture);
     break;
   }
   case SDL_FINGERMOTION:
+    /* fall through */
   case SDL_FINGERDOWN:
+    /* fall through */
   case SDL_FINGERUP:
   {
+    SDL_TouchFingerEvent args = event.tfinger;
+    SET_PROPERTY(retval, int64, "touchId", args.touchId);
+    SET_PROPERTY(retval, int64, "fingerId", args.fingerId);
+    SET_PROPERTY(retval, double, "x", args.x);
+    SET_PROPERTY(retval, double, "y", args.y);
+    SET_PROPERTY(retval, double, "dx", args.dx);
+    SET_PROPERTY(retval, double, "dy", args.dy);
+    SET_PROPERTY(retval, double, "pressure", args.pressure);
     break;
   }
   case SDL_MULTIGESTURE:
   {
+    SDL_MultiGestureEvent args = event.mgesture;
+    SET_PROPERTY(retval, int64, "touchId", args.touchId);
+    SET_PROPERTY(retval, double, "dTheta", args.dTheta);
+    SET_PROPERTY(retval, double, "dDist", args.dDist);
+    SET_PROPERTY(retval, double, "x", args.x);
+    SET_PROPERTY(retval, double, "y", args.y);
+    SET_PROPERTY(retval, uint32, "numFingers", args.numFingers);
+    SET_PROPERTY(retval, uint32, "padding", args.padding);
     break;
   }
   case SDL_DOLLARGESTURE:
+    /* fall through */
   case SDL_DOLLARRECORD:
   {
+    SDL_DollarGestureEvent args = event.dgesture;
+    SET_PROPERTY(retval, int64, "touchId", args.touchId);
+    SET_PROPERTY(retval, int64, "gestureId", args.gestureId);
+    SET_PROPERTY(retval, uint32, "numFingers", args.numFingers);
+    SET_PROPERTY(retval, double, "error", args.error);
+    SET_PROPERTY(retval, double, "x", args.x);
+    SET_PROPERTY(retval, double, "y", args.y);
     break;
   }
   case SDL_DROPBEGIN:
+    /* fall through */
   case SDL_DROPFILE:
+    /* fall through */
   case SDL_DROPTEXT:
+    /* fall through */
   case SDL_DROPCOMPLETE:
   {
+    SDL_DropEvent args = event.drop;
+    SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+    // TODO: ".file" is not yet supported because it requires mem management.
     break;
   }
   case SDL_SENSORUPDATE:
   {
+    SDL_SensorEvent args = event.sensor;
+    SET_PROPERTY(retval, int32, "which", args.which);
+
+    napi_value data = convert_float_array(env, args.data, 6);
+    ASSERT_OK(napi_set_named_property(env, retval, "data", data), "EINVAL", "Property setting error.");
     break;
   }
   case SDL_QUIT:
   {
+    // No extra fields.
     break;
   }
   case SDL_SYSWMEVENT:
   {
+    SDL_SysWMEvent args = event.syswm;
+    SET_PROPERTY_EXTERNAL(retval, "msg", args.msg);
     break;
   }
   default:
   {
-    // Remaining events might be user events.
+    // Remaining events might be user events if they fall within this range.
     if ((event.common.type >= SDL_USEREVENT) && (event.common.type < SDL_LASTEVENT))
     {
+      SDL_UserEvent args = event.user;
+      SET_PROPERTY(retval, uint32, "windowID", args.windowID);
+      SET_PROPERTY(retval, int32, "code", args.code);
+      SET_PROPERTY_EXTERNAL(retval, "data1", args.data1);
+      SET_PROPERTY_EXTERNAL(retval, "data2", args.data2);
       break;
+    }
+    else
+    {
+      napi_throw_error(env, "EINVAL", "Invalid event type");
+      return nullptr;
     }
   }
   }
