@@ -4,11 +4,11 @@
 
 void create_sdl(napi_env env, napi_value exports)
 {
-  export_function(env, exports, "SDL_Init", napi_SDL_Init);
-  export_function(env, exports, "SDL_InitSubSystem", napi_SDL_InitSubSystem);
-  export_function(env, exports, "SDL_QuitSubSystem", napi_SDL_QuitSubSystem);
-  export_function(env, exports, "SDL_WasInit", napi_SDL_WasInit);
-  export_function(env, exports, "SDL_Quit", napi_SDL_Quit);
+  export_function(env, exports, "Init", napi_SDL_Init);
+  export_function(env, exports, "InitSubSystem", napi_SDL_InitSubSystem);
+  export_function(env, exports, "QuitSubSystem", napi_SDL_QuitSubSystem);
+  export_function(env, exports, "WasInit", napi_SDL_WasInit);
+  export_function(env, exports, "Quit", napi_SDL_Quit);
 }
 
 //===========================================================================
