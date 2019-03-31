@@ -82,7 +82,6 @@ exports.PRESSED = 1;
 //===========================================================================
 // SDL_events.h
 // SDL_EventType
-exports.FIRSTEVENT = 0; /**< Unused (do not remove) */
 
 // Application events
 exports.QUIT = 0x100;

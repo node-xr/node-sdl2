@@ -4,6 +4,7 @@
 #include <SDL_syswm.h>
 #include <string>
 
+//===========================================================================
 void create_sdl_syswm(napi_env env, napi_value exports)
 {
   export_function(env, exports, "GetWindowWMInfo", napi_SDL_GetWindowWMInfo);
