@@ -9,28 +9,41 @@ napi_value convert_SDL_event(napi_env env, const SDL_Event &event)
   ASSERT_OK(napi_create_object(env, &retval), "EINVAL", "Failed to create SDL_event.");
 
   // Fields shared by every event.
-  napi_value type;
-  ASSERT_OK(napi_create_uint32(env, event.type, &type), "EINVAL", "Argument type error.");
-  ASSERT_OK(napi_set_named_property(env, retval, "type", type), "EINVAL", "Property setting error.");
-
-  napi_value timestamp;
-  ASSERT_OK(napi_create_uint32(env, event.common.timestamp, &timestamp), "EINVAL", "Argument type error.");
-  ASSERT_OK(napi_set_named_property(env, retval, "timestamp", timestamp), "EINVAL", "Property setting error.");
+  SET_PROPERTY(retval, uint32, "type", event.type);
+  SET_PROPERTY(retval, uint32, "timestamp", event.common.timestamp);
 
   switch (event.type)
   {
   case SDL_DISPLAYEVENT:
   {
+    SET_PROPERTY(retval, uint32, "display", event.display.display);
+    SET_PROPERTY(retval, uint32, "event", event.display.event);
+    SET_PROPERTY(retval, int32, "data1", event.display.data1);
     break;
   }
   case SDL_WINDOWEVENT:
   {
+    SET_PROPERTY(retval, uint32, "windowID", event.window.windowID);
+    SET_PROPERTY(retval, uint32, "event", event.window.event);
+    SET_PROPERTY(retval, int32, "data1", event.window.data1);
+    SET_PROPERTY(retval, int32, "data2", event.window.data2);
     break;
   }
   case SDL_KEYDOWN:
   case SDL_KEYUP: // TODO: mark intentional
   {
+    SET_PROPERTY(retval, uint32, "windowID", event.key.windowID);
+    SET_PROPERTY(retval, uint32, "state", event.key.state);
+    SET_PROPERTY(retval, uint32, "repeat", event.key.repeat);
 
+    napi_value keysym;
+    ASSERT_OK(napi_create_object(env, &keysym), "EINVAL", "Failed to create SDL_event.");
+    {
+      SET_PROPERTY(keysym, uint32, "scancode", event.key.keysym.scancode);
+      SET_PROPERTY(keysym, int32, "sym", event.key.keysym.sym);
+      SET_PROPERTY(keysym, uint32, "mod", event.key.keysym.mod);
+    }
+    ASSERT_OK(napi_set_named_property(env, retval, "keysym", keysym), "EINVAL", "Property setting error.");
     break;
   }
   case SDL_TEXTEDITING:
