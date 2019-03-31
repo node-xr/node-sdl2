@@ -1,7 +1,9 @@
 #include "video.hpp"
+#include "../util.hpp"
 
 #include <SDL_video.h>
 
+//===========================================================================
 void create_sdl_video(napi_env env, napi_value exports)
 {
   export_function(env, exports, "CreateWindow", napi_SDL_CreateWindow);
