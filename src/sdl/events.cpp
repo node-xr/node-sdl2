@@ -287,6 +287,9 @@ void create_sdl_event(napi_env env, napi_value exports)
   export_function(env, exports, "HasEvents", napi_SDL_HasEvent);
   export_function(env, exports, "FlushEvent", napi_SDL_FlushEvent);
   export_function(env, exports, "FlushEvents", napi_SDL_FlushEvents);
+  export_function(env, exports, "PollEvent", napi_SDL_PollEvent);
+  export_function(env, exports, "WaitEvent", napi_SDL_WaitEvent);
+  export_function(env, exports, "WaitEventTimeout", napi_SDL_WaitEventTimeout);
 }
 
 //===========================================================================
@@ -368,6 +371,30 @@ napi_value napi_SDL_PollEvent(napi_env env, napi_callback_info info)
 {
   SDL_Event event;
   int result = SDL_PollEvent(&event);
+
+  return (result) ? convert_SDL_event(env, event) : nullptr;
+}
+
+//===========================================================================
+napi_value napi_SDL_WaitEvent(napi_env env, napi_callback_info info)
+{
+  SDL_Event event;
+  int result = SDL_WaitEvent(&event);
+
+  return (result) ? convert_SDL_event(env, event) : nullptr;
+}
+
+//===========================================================================
+napi_value napi_SDL_WaitEventTimeout(napi_env env, napi_callback_info info)
+{
+  napi_value argv[1];
+  GET_ARGS(1);
+
+  int32_t timeout;
+  ASSERT_OK(napi_get_value_int32(env, argv[0], &timeout), "EINVAL", "Argument type error.");
+
+  SDL_Event event;
+  int result = SDL_WaitEventTimeout(&event, timeout);
 
   return (result) ? convert_SDL_event(env, event) : nullptr;
 }
