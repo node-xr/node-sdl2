@@ -5,7 +5,7 @@
 
 void create_sdl_syswm(napi_env env, napi_value exports)
 {
-  export_function(env, exports, "SDL_GetWindowWMInfo", napi_SDL_GetWindowWMInfo);
+  export_function(env, exports, "GetWindowWMInfo", napi_SDL_GetWindowWMInfo);
 }
 
 //===========================================================================
@@ -72,7 +72,7 @@ napi_value napi_SDL_GetWindowWMInfo(napi_env env, napi_callback_info info)
     ASSERT_OK(napi_set_named_property(env, retval, "display", display), "EINVAL", "Property setting error.");
 
     napi_value window;
-    ASSERT_OK(napi_create_uint32(env, wminfo.info.x11.window, &window), "EINVAL", "Argument type error.");
+    ASSERT_OK(napi_create_external(env, (void *)wminfo.info.x11.window, nullptr, nullptr, &window), "EINVAL", "Argument type error.");
     ASSERT_OK(napi_set_named_property(env, retval, "window", window), "EINVAL", "Property setting error.");
     break;
   }

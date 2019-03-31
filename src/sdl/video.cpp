@@ -4,8 +4,8 @@
 
 void create_sdl_video(napi_env env, napi_value exports)
 {
-  export_function(env, exports, "SDL_CreateWindow", napi_SDL_CreateWindow);
-  export_function(env, exports, "SDL_DestroyWindow", napi_SDL_DestroyWindow);
+  export_function(env, exports, "CreateWindow", napi_SDL_CreateWindow);
+  export_function(env, exports, "DestroyWindow", napi_SDL_DestroyWindow);
 }
 
 //===========================================================================
