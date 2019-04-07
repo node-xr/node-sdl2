@@ -85,7 +85,7 @@ napi_value napi_SDL_GetWindowWMInfo(napi_env env, napi_callback_info info)
   {
     napi_value window;
     ASSERT_OK(napi_create_external(env, wminfo.cocoa.window, nullptr, nullptr, &window), "EINVAL", "Argument type error.");
-    ASSERT_OK(napi_set_named_property(env, retval, 'window', window), "EINVAL", "Property setting error.");
+    ASSERT_OK(napi_set_named_property(env, retval, "window", window), "EINVAL", "Property setting error.");
     break;
   }
 #endif
