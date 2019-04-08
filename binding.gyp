@@ -43,7 +43,10 @@
         }],
         ['OS=="mac"', {
           'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/osx64'],
-          'libraries': ['SDL2.dylib'],
+          'libraries': [
+            '-Wl,-rpath,<(module_root_dir)/build/Release',
+            '<(module_root_dir)/deps/sdl2/lib/osx64/SDL2.dylib'
+          ],
           'copies':
           [
             {
