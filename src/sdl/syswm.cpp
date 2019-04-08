@@ -52,15 +52,15 @@ napi_value napi_SDL_GetWindowWMInfo(napi_env env, napi_callback_info info)
   case SDL_SYSWM_WINDOWS:
   {
     napi_value window;
-    ASSERT_OK(napi_create_external(env, wminfo.win.window, nullptr, nullptr, &window), "EINVAL", "Argument type error.");
+    ASSERT_OK(napi_create_external(env, wminfo.info.win.window, nullptr, nullptr, &window), "EINVAL", "Argument type error.");
     ASSERT_OK(napi_set_named_property(env, retval, "window", window), "EINVAL", "Property setting error.");
 
     napi_value hdc;
-    ASSERT_OK(napi_create_external(env, wminfo.win.hdc, nullptr, nullptr, &hdc), "EINVAL", "Argument type error.");
+    ASSERT_OK(napi_create_external(env, wminfo.info.win.hdc, nullptr, nullptr, &hdc), "EINVAL", "Argument type error.");
     ASSERT_OK(napi_set_named_property(env, retval, "hdc", hdc), "EINVAL", "Property setting error.");
 
     napi_value hinstance;
-    ASSERT_OK(napi_create_external(env, wminfo.win.hinstance, nullptr, nullptr, &hinstance), "EINVAL", "Argument type error.");
+    ASSERT_OK(napi_create_external(env, wminfo.info.win.hinstance, nullptr, nullptr, &hinstance), "EINVAL", "Argument type error.");
     ASSERT_OK(napi_set_named_property(env, retval, "hinstance", hinstance), "EINVAL", "Property setting error.");
     break;
   }
@@ -84,7 +84,7 @@ napi_value napi_SDL_GetWindowWMInfo(napi_env env, napi_callback_info info)
   case SDL_SYSWM_COCOA:
   {
     napi_value window;
-    ASSERT_OK(napi_create_external(env, wminfo.cocoa.window, nullptr, nullptr, &window), "EINVAL", "Argument type error.");
+    ASSERT_OK(napi_create_external(env, wminfo.info.cocoa.window, nullptr, nullptr, &window), "EINVAL", "Argument type error.");
     ASSERT_OK(napi_set_named_property(env, retval, "window", window), "EINVAL", "Property setting error.");
     break;
   }
