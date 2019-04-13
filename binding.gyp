@@ -3,7 +3,6 @@
     'platform': '<(OS)',
   },
   'conditions': [
-    # Replace gyp platform with node platform, blech
     ['platform == "mac"', {'variables': {'platform': 'darwin'}}],
     ['platform == "win"', {'variables': {'platform': 'win32'}}],
   ],
@@ -27,36 +26,22 @@
         '<(module_root_dir)/deps/sdl2/include',
       ],
       'conditions': [
-        ['OS=="linux"', {
-          'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/linux64'],
+        ['platform=="linux"', {
+          'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/linux/x64'],
           'libraries': [
-            '-Wl,-rpath,<(module_root_dir)/build/Release',
-            '<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2-2.0.so.0'
-          ],
-          'copies':
-          [
-            {
-              'destination': '<(module_root_dir)/build/Release',
-              'files': ['<(module_root_dir)/deps/sdl2/lib/linux64/libSDL2-2.0.so.0']
-            }
+            '-Wl,-rpath,<(module_root_dir)/deps/sdl2/lib/linux/x64',
+            '<(module_root_dir)/deps/sdl2/lib/linux/x64/libSDL2-2.0.so.0'
           ],
         }],
-        ['OS=="mac"', {
-          'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/osx64'],
+        ['platform=="darwin"', {
+          'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/darwin/x64'],
           'libraries': [
-            '-Wl,-rpath,<(module_root_dir)/build/Release',
-            '<(module_root_dir)/deps/sdl2/lib/osx64/SDL2.dylib'
-          ],
-          'copies':
-          [
-            {
-              'destination': '<(module_root_dir)/build/Release',
-              'files': ['<(module_root_dir)/deps/sdl2/lib/osx64/SDL2.dylib']
-            }
+            '-Wl,-rpath,<(module_root_dir)/deps/sdl2/lib/darwin/x64',
+            '<(module_root_dir)/deps/sdl2/lib/darwin/x64/SDL2.dylib'
           ],
         }],
-        ['OS=="win"', {
-          'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/win64'],
+        ['platform=="win32"', {
+          'library_dirs': ['<(module_root_dir)/deps/sdl2/lib/win32/x64'],
           'libraries': ['SDL2.lib'],
           'defines' : ['WIN32_LEAN_AND_MEAN', 'VC_EXTRALEAN', 'NOMINMAX'],
           'msvs_settings' : {
@@ -71,7 +56,7 @@
           [
             {
               'destination': '<(module_root_dir)/build/Release',
-              'files': ['<(module_root_dir)/deps/sdl2/lib/win64/SDL2.dll']
+              'files': ['<(module_root_dir)/deps/sdl2/lib/win32/x64/SDL2.dll']
             }
           ],
         }],
