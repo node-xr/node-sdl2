@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "target": "es6"
   },
-  "include": ["lib/**/*"]
+  "include": ["lib/**/*"],
+  "exclude": ["node_modules"]
 }

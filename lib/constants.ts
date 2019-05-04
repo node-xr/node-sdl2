@@ -46,15 +46,17 @@ export const WINDOW_POPUP_MENU = 0x00080000;
 export const WINDOW_VULKAN = 0x10000000;
 
 export const WINDOWPOS_UNDEFINED_MASK = 0x1fff0000;
-export const WINDOWPOS_UNDEFINED_DISPLAY = X => WINDOWPOS_UNDEFINED_MASK | X;
+export const WINDOWPOS_UNDEFINED_DISPLAY = (X: number): number =>
+  WINDOWPOS_UNDEFINED_MASK | X;
 export const WINDOWPOS_UNDEFINED = WINDOWPOS_UNDEFINED_DISPLAY(0);
-export const WINDOWPOS_ISUNDEFINED = X =>
+export const WINDOWPOS_ISUNDEFINED = (X: number): boolean =>
   (X & 0xffff0000) == WINDOWPOS_UNDEFINED_MASK;
 
 export const WINDOWPOS_CENTERED_MASK = 0x2fff0000;
-export const WINDOWPOS_CENTERED_DISPLAY = X => WINDOWPOS_CENTERED_MASK | X;
+export const WINDOWPOS_CENTERED_DISPLAY = (X: number): number =>
+  WINDOWPOS_CENTERED_MASK | X;
 export const WINDOWPOS_CENTERED = WINDOWPOS_CENTERED_DISPLAY(0);
-export const WINDOWPOS_ISCENTERED = X =>
+export const WINDOWPOS_ISCENTERED = (X: number): boolean =>
   (X & 0xffff0000) == WINDOWPOS_CENTERED_MASK;
 
 //===========================================================================
