@@ -23,17 +23,17 @@
   "bugs": {
     "url": "https://github.com/node-xr/node-sdl2/issues"
   },
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
+    "format": "prettier",
     "install": "node-gyp rebuild",
     "lint": "eslint .",
     "test": "jest"
   },
-  "directories": {
-    "src": "src",
-    "lib": "lib",
-    "test": "test"
-  },
+  "files": [
+    "dist/**/*"
+  ],
   "engines": {
     "node": ">=8.0.0"
   },
@@ -41,12 +41,16 @@
     "bindings": "^1.5.0"
   },
   "devDependencies": {
-    "eslint": "^5.15.3",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "@types/jest": "^24.0.12",
+    "@types/node": "^12.0.0",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
+    "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "jest": "^24.5.0",
-    "prettier": "^1.16.4"
+    "jest": "^24.7.1",
+    "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
   }
 }

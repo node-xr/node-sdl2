@@ -4,4 +4,4 @@ const constants = require('./constants');
 // Add constants to exported object.
 Object.assign(sdl, constants);
 
-module.exports = sdl;
+export default sdl;
