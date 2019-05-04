@@ -23,9 +23,8 @@
   "bugs": {
     "url": "https://github.com/node-xr/node-sdl2/issues"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "generate": "node ./gen/generate.js",
     "install": "node-gyp rebuild",
     "lint": "eslint .",
     "test": "jest"

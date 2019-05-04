@@ -1,4 +1,4 @@
-const SDL = require('../index');
+const SDL = require('../lib/index');
 
 describe('sdl', () => {
   it('imports successfully', () => {
