@@ -32,6 +32,7 @@
     "test": "jest"
   },
   "files": [
+    "deps/**/*",
     "dist/**/*"
   ],
   "engines": {
@@ -41,6 +42,7 @@
     "bindings": "^1.5.0"
   },
   "devDependencies": {
+    "@types/bindings": "^1.3.0",
     "@types/jest": "^24.0.12",
     "@types/node": "^12.0.0",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
