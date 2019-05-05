@@ -1,4 +1,4 @@
-const SDL = require('../lib/index');
+import SDL from '../lib/index';
 
 describe('sdl video', () => {
   beforeAll(() => {

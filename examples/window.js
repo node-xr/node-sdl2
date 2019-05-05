@@ -1,4 +1,4 @@
-const SDL = require('../index');
+const SDL = require('../dist/index');
 
 const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
