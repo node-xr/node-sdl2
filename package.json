@@ -33,7 +33,11 @@
   },
   "files": [
     "deps/**/*",
-    "dist/**/*"
+    "dist/**/*",
+    "binding.gyp",
+    "package.json",
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=8.0.0"
