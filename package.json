@@ -34,6 +34,7 @@
   "files": [
     "deps/**/*",
     "dist/**/*",
+    "src/**/*",
     "binding.gyp",
     "package.json",
     "README.md",
