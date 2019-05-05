@@ -1,8 +1,10 @@
 import bindings from 'bindings';
 import * as constants from './constants';
+import { SDL } from './types';
 
-// Add constants to exported object.
+// Import the native binding and augment with constants.
 const sdl = bindings('sdl2');
 Object.assign(sdl, constants);
 
-export default sdl;
+// Export the correctly typed binding.
+export default sdl as typeof constants & SDL;
